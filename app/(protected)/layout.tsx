@@ -4,8 +4,8 @@ import {
   SignedOut,
   RedirectToSignIn,
 } from "@clerk/nextjs";
-// import Sidebar from '@/components/common/Sidebar';
-// import Navbar from '@/components/common/Navbar';
+import Sidebar from "@/components/common/Sidebar";
+import Navbar from "@/components/common/Navbar";
 
 export default function ProtectedLayout({
   children,
@@ -16,9 +16,9 @@ export default function ProtectedLayout({
     <ClerkProvider>
       <SignedIn>
         <div className="flex">
-          {/* <Sidebar /> */}
+          <Sidebar />
           <div className="flex-1">
-            {/* <Navbar /> */}
+            <Navbar />
             {children}
           </div>
         </div>
