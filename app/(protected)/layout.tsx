@@ -4,7 +4,11 @@ import {
   SignedOut,
   RedirectToSignIn,
 } from "@clerk/nextjs";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarProvider,
+  SidebarInset,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/common/Sidebar";
 
 export default function ProtectedLayout({
@@ -16,13 +20,11 @@ export default function ProtectedLayout({
     <ClerkProvider>
       <SignedIn>
         <SidebarProvider>
-          <div className="flex">
-            <AppSidebar />
-            <div className="flex-1">
-              <SidebarTrigger />
-              {children}
-            </div>
-          </div>
+          <AppSidebar />
+          <SidebarInset className="h-full overflow-y-auto bg-[#2e333d]">
+            <SidebarTrigger />
+            {children}
+          </SidebarInset>
         </SidebarProvider>
       </SignedIn>
       <SignedOut>
