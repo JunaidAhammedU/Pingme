@@ -10,6 +10,7 @@ export default function Header() {
         <div className="space-x-4">
           <Link href="/about">About</Link>
           <Link href="/faq">FAQ</Link>
+          <Link href="/dashboard">Dashboard</Link>
         </div>
       </nav>
     </header>
