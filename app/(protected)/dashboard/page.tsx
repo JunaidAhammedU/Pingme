@@ -12,7 +12,7 @@ export default async function DashboardPage() {
     <div className="h-[calc(100vh-4rem)] w-full p-2 sm:p-4 lg:p-6">
       <div className="flex flex-col lg:flex-row h-full w-full gap-3">
         {/* Chat List */}
-        <div className="w-full lg:w-[350px] h-[calc(100vh-6rem)] bg-[#2e333d] overflow-auto rounded-2xl">
+        <div className="w-full lg:w-[350px] h-[calc(100vh-6rem)] bg-[#2e333d] overflow-auto rounded-2xl [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
           <div className="mb-4 p-3 sticky top-0 z-10 bg-[#2e333d]">
             <div className="relative flex items-center justify-center">
               <IoSearch className="absolute left-3 text-xl text-gray-400" />
