@@ -21,7 +21,7 @@ export default function ProtectedLayout({
       <SignedIn>
         <SidebarProvider>
           <AppSidebar />
-          <SidebarInset className="h-full overflow-y-auto bg-[#2e333d]">
+          <SidebarInset className="min-h-screen overflow-y-auto bg-[#2e333d]">
             <SidebarTrigger />
             {children}
           </SidebarInset>
