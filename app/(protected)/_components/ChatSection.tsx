@@ -1,8 +1,12 @@
 import { Input } from "@/components/ui/input";
-import { IoSend } from "react-icons/io5";
+import { IoCall, IoSearch, IoSend } from "react-icons/io5";
 import { FiPaperclip } from "react-icons/fi";
 import { BsEmojiSmile } from "react-icons/bs";
 import Thumbnail from "./Thumbnail";
+import {
+  PiDotsThreeOutlineVerticalDuotone,
+  PiSidebarSimpleDuotone,
+} from "react-icons/pi";
 
 export default function ChatSection() {
   return (
@@ -18,6 +22,20 @@ export default function ChatSection() {
             <h2 className="text-gray-100 font-semibold">Junaid Ahammed</h2>
             <p className="text-xs text-gray-400">Online</p>
           </div>
+        </div>
+        <div className="flex items-center gap-5">
+          <button className="hover:text-gray-200 transition-colors">
+            <IoSearch className="text-[20px] text-white/50" />
+          </button>
+          <button className="hover:text-gray-200 transition-colors">
+            <IoCall className="text-[20px] text-white/50" />
+          </button>
+          <button className="hover:text-gray-200 transition-colors">
+            <PiSidebarSimpleDuotone className="text-[20px] text-white/50" />
+          </button>
+          <button className="hover:text-gray-200 transition-colors">
+            <PiDotsThreeOutlineVerticalDuotone className="text-[20px] text-white/50" />
+          </button>
         </div>
       </div>
 
