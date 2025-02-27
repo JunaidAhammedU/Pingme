@@ -1,50 +1,112 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { IoSearch } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 
-const GifSearch = ({
-  onSelectGif,
-}: {
-  onSelectGif: (gifUrl: string) => void;
-}) => {
+const GifPicker = ({ onSelect }: { onSelect: (url: string) => void }) => {
   const [search, setSearch] = useState("");
-  const [gifs, setGifs] = useState<string[]>([]);
+  const [gifs, setGifs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const API_KEY = "9dDueYYMxIpzBMLG1ZCjUer1oqHpMXAE";
 
-  const fetchGifs = async (query: string) => {
-    const API_KEY = " AIzaSyBv7GmTI5Y2LradpV2px4117V6PPfDG-KA"; // Replace with your API key
-    const res = await fetch(
-      `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=10`
-    );
-    const { data } = await res.json();
-    setGifs(data.map((gif: any) => gif.images.fixed_height.url));
+  // Fetch trending GIFs on initial load
+  useEffect(() => {
+    fetchTrendingGifs();
+  }, []);
+
+  const fetchTrendingGifs = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=15`
+      );
+      setGifs(res.data.data);
+    } catch (error) {
+      console.error("Error fetching trending GIFs:", error);
+    }
+    setLoading(false);
+  };
+
+  const fetchGifs = async () => {
+    if (!search.trim()) {
+      fetchTrendingGifs();
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=${API_KEY}&limit=15`
+      );
+      setGifs(res.data.data);
+    } catch (error) {
+      console.error("Error fetching GIFs:", error);
+    }
+    setLoading(false);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetchGifs();
   };
 
   return (
-    <div className="p-4 border rounded-md">
-      <input
-        type="text"
-        placeholder="Search GIFs..."
-        className="border p-2 w-full"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <button
-        className="mt-2 p-2 bg-blue-500 text-white rounded-md"
-        onClick={() => fetchGifs(search)}
-      >
-        Search
-      </button>
-      <div className="grid grid-cols-3 gap-2 mt-4">
-        {gifs.map((gif, index) => (
-          <img
-            key={index}
-            src={gif}
-            alt="gif"
-            className="w-full h-auto cursor-pointer"
-            onClick={() => onSelectGif(gif)}
+    <div className="gif-picker w-full h-full flex flex-col">
+      <form onSubmit={handleSubmit} className="mb-4">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search GIFs..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full bg-[#2b2d31] text-gray-200 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#6b8afd] transition-all"
           />
-        ))}
+          <IoSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        </div>
+      </form>
+
+      <div className="flex-1 overflow-y-auto">
+        {loading ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#6b8afd]"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-2">
+            <AnimatePresence>
+              {gifs.map((gif) => (
+                <motion.div
+                  key={gif.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="relative group cursor-pointer overflow-hidden rounded-lg"
+                  onClick={() => onSelect(gif.images.fixed_height.url)}
+                >
+                  <img
+                    src={gif.images.fixed_height.url}
+                    alt={gif.title}
+                    className="w-full h-[100px] object-cover rounded-lg transition-transform duration-200 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200" />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
+
+        {!loading && gifs.length === 0 && (
+          <div className="flex flex-col items-center justify-center h-full text-gray-400">
+            <p>No GIFs found</p>
+            <button
+              onClick={fetchTrendingGifs}
+              className="mt-2 text-[#6b8afd] hover:underline"
+            >
+              Show trending GIFs
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default GifSearch;
+export default GifPicker;

@@ -5,11 +5,12 @@ import { IoSend } from "react-icons/io5";
 import EmojiPicker from "emoji-picker-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbGift } from "react-icons/tb";
+import GifPicker from "./GIFPicker";
 
 interface MessageInputProps {
   value: string;
   onChange: (value: string) => void;
-  onSend: () => void;
+  onSend: (content: string, type?: "text" | "gif") => void;
   isAttaching: boolean;
   onAttach: () => void;
 }
@@ -45,6 +46,11 @@ export function MessageInput({
     // Add your audio recording logic here
   };
 
+  const handleGifSelect = (gifUrl: string) => {
+    onSend(gifUrl, "gif");
+    setShowGifs(false);
+  };
+
   return (
     <div className="relative p-4 ">
       {/* Emoji Picker */}
@@ -71,9 +77,8 @@ export function MessageInput({
             className="absolute bottom-full mb-2 left-12"
           >
             <div className="bg-[#383c44] p-4 rounded-lg">
-              {/* Add your GIF picker component here */}
               <div className="w-[320px] h-[400px]">
-                <p className="text-gray-300">GIF Picker Coming Soon</p>
+                <GifPicker onSelect={handleGifSelect} />
               </div>
             </div>
           </motion.div>
@@ -149,7 +154,7 @@ export function MessageInput({
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             className="text-white bg-[#6b8afd] p-3 rounded-xl hover:bg-[#5a75e0] transition-colors"
-            onClick={onSend}
+            onClick={() => onSend(value, "text")}
           >
             <IoSend className="w-5 h-5" />
           </motion.button>
