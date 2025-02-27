@@ -4,6 +4,7 @@ import { FiPaperclip } from "react-icons/fi";
 import { IoSend } from "react-icons/io5";
 import EmojiPicker from "emoji-picker-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { TbGift } from "react-icons/tb";
 
 interface MessageInputProps {
   value: string;
@@ -21,6 +22,7 @@ export function MessageInput({
   onAttach,
 }: MessageInputProps) {
   const [showEmoji, setShowEmoji] = useState(false);
+  const [showGifs, setShowGifs] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -59,6 +61,25 @@ export function MessageInput({
         )}
       </AnimatePresence>
 
+      {/* GIF Picker */}
+      <AnimatePresence>
+        {showGifs && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="absolute bottom-full mb-2 left-12"
+          >
+            <div className="bg-[#383c44] p-4 rounded-lg">
+              {/* Add your GIF picker component here */}
+              <div className="w-[320px] h-[400px]">
+                <p className="text-gray-300">GIF Picker Coming Soon</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* File Preview */}
       {attachedFile && (
         <div className="mb-2 p-2 bg-[#383c44] rounded-lg flex items-center justify-between">
@@ -79,9 +100,24 @@ export function MessageInput({
           className={`text-gray-400 hover:text-gray-300 transition-colors p-2 rounded-full hover:bg-[#383c44] ${
             showEmoji ? "bg-[#383c44] text-gray-200" : ""
           }`}
-          onClick={() => setShowEmoji(!showEmoji)}
+          onClick={() => {
+            setShowEmoji(!showEmoji);
+            setShowGifs(false);
+          }}
         >
           <BsEmojiSmile className="w-5 h-5" />
+        </button>
+
+        <button
+          className={`text-gray-400 hover:text-gray-300 transition-colors p-2 rounded-full hover:bg-[#383c44] ${
+            showGifs ? "bg-[#383c44] text-gray-200" : ""
+          }`}
+          onClick={() => {
+            setShowGifs(!showGifs);
+            setShowEmoji(false);
+          }}
+        >
+          <TbGift className="w-5 h-5" />
         </button>
 
         <button
