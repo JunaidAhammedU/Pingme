@@ -9,7 +9,7 @@ const GifSearch = ({
   const [gifs, setGifs] = useState<string[]>([]);
 
   const fetchGifs = async (query: string) => {
-    const API_KEY = "YOUR_GIPHY_API_KEY"; // Replace with your API key
+    const API_KEY = " AIzaSyBv7GmTI5Y2LradpV2px4117V6PPfDG-KA"; // Replace with your API key
     const res = await fetch(
       `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=10`
     );
