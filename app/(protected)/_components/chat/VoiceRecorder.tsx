@@ -144,7 +144,7 @@ export function VoiceRecorder({
         animate={{ scale: 1 }}
         className={`p-3 rounded-xl transition-colors ${
           isRecording
-            ? "bg-red-500 hover:bg-red-600"
+            ? "bg-[#6b8afd] hover:bg-[#4864d1] text-white"
             : "text-gray-400 hover:text-gray-300 hover:bg-[#383c44]"
         }`}
         onClick={onToggle}
