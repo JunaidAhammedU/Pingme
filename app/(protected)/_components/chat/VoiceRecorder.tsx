@@ -97,33 +97,54 @@ export function VoiceRecorder({
     const draw = () => {
       if (!ctx || !analyserRef.current) return;
 
-      analyserRef.current.getByteTimeDomainData(dataArray);
+      analyserRef.current.getByteFrequencyData(dataArray);
 
       ctx.fillStyle = "#383c44";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "#6b8afd";
+      const barWidth = 3;
+      const barGap = 2;
+      const bars = Math.floor(canvas.width / (barWidth + barGap));
+      const step = Math.floor(bufferLength / bars);
+
       ctx.beginPath();
 
-      const sliceWidth = canvas.width / bufferLength;
-      let x = 0;
+      for (let i = 0; i < bars; i++) {
+        const dataIndex = i * step;
+        const value = dataArray[dataIndex];
+        const percent = value / 255;
+        const height = canvas.height * percent * 0.8; // 80% of canvas height
 
-      for (let i = 0; i < bufferLength; i++) {
-        const v = dataArray[i] / 128.0;
-        const y = v * (canvas.height / 2);
+        const x = i * (barWidth + barGap);
+        const y = (canvas.height - height) / 2;
 
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
+        // Create gradient for each bar
+        const gradient = ctx.createLinearGradient(x, y, x, y + height);
+        gradient.addColorStop(0, "#8ba3ff"); // Light blue
+        gradient.addColorStop(1, "#6b8afd"); // Original blue
 
-        x += sliceWidth;
+        ctx.fillStyle = gradient;
+
+        // Draw rounded rectangles
+        const radius = barWidth / 2;
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + barWidth - radius, y);
+        ctx.quadraticCurveTo(x + barWidth, y, x + barWidth, y + radius);
+        ctx.lineTo(x + barWidth, y + height - radius);
+        ctx.quadraticCurveTo(
+          x + barWidth,
+          y + height,
+          x + barWidth - radius,
+          y + height
+        );
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+        ctx.fill();
       }
-
-      ctx.lineTo(canvas.width, canvas.height / 2);
-      ctx.stroke();
 
       animationFrameRef.current = requestAnimationFrame(draw);
     };
@@ -135,9 +156,11 @@ export function VoiceRecorder({
     <div className="flex items-center gap-2">
       <canvas
         ref={canvasRef}
-        width={100}
+        width={150} // Increased width for better visualization
         height={40}
-        className={`rounded-lg ${isRecording ? "visible" : "hidden"}`}
+        className={`rounded-lg ${
+          isRecording ? "visible" : "hidden"
+        } transition-opacity duration-300`}
       />
       <motion.button
         initial={{ scale: 0 }}
