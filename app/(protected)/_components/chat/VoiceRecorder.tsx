@@ -153,27 +153,13 @@ export function VoiceRecorder({
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center h-full">
       <canvas
         ref={canvasRef}
         width={600}
         height={40}
-        className={`rounded-lg ${
-          isRecording ? "visible" : "hidden"
-        } transition-opacity duration-300 rounded-xl`}
+        className="rounded-xl w-full bg-[#383c44]"
       />
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        className={`p-3 rounded-xl transition-colors ${
-          isRecording
-            ? "bg-[#6b8afd] hover:bg-[#4864d1] text-white"
-            : "text-gray-400 hover:text-gray-300 hover:bg-[#383c44]"
-        }`}
-        onClick={onToggle}
-      >
-        <BsMicFill className="w-5 h-5" />
-      </motion.button>
     </div>
   );
 }

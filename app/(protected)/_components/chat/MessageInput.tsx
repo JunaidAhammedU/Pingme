@@ -62,7 +62,7 @@ export function MessageInput({
   };
 
   return (
-    <div className="relative p-4 ">
+    <div className="relative p-4">
       {/* Emoji Picker */}
       <AnimatePresence>
         {showEmoji && (
@@ -149,59 +149,73 @@ export function MessageInput({
           />
         </button>
 
-        <div className="flex-1 relative">
-          <motion.div
-            initial={{ opacity: 1, scale: 1 }}
-            animate={{
-              opacity: isRecording ? 0 : 1,
-              scale: isRecording ? 0.8 : 1,
-              display: isRecording ? "none" : "block",
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            <input
-              type="text"
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              className="w-full bg-[#383c44] text-gray-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6b8afd] transition-all"
-              placeholder="Type a message..."
-              disabled={isRecording}
-            />
-          </motion.div>
-          {isRecording && (
-            <motion.div className="w-full">
-              <VoiceRecorder
-                isRecording={isRecording}
-                onStop={handleVoiceRecordingStop}
-                onToggle={handleRecordToggle}
-              />
-            </motion.div>
-          )}
+        <div className="flex-1 relative h-[46px]">
+          <AnimatePresence mode="wait">
+            {isRecording ? (
+              <motion.div
+                key="recorder"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute inset-0 flex items-center gap-2"
+              >
+                <div className="flex-1">
+                  <VoiceRecorder
+                    isRecording={isRecording}
+                    onStop={handleVoiceRecordingStop}
+                    onToggle={handleRecordToggle}
+                  />
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="input"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute inset-0"
+              >
+                <input
+                  type="text"
+                  value={value}
+                  onChange={(e) => onChange(e.target.value)}
+                  className="w-full h-full bg-[#383c44] text-gray-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6b8afd] transition-all"
+                  placeholder="Type a message..."
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {value.length > 0 ? (
-          <motion.button
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="text-white bg-[#6b8afd] p-3 rounded-xl hover:bg-[#5a75e0] transition-colors"
-            onClick={() => onSend(value, "text")}
-          >
-            <IoSend className="w-5 h-5" />
-          </motion.button>
-        ) : (
-          <motion.button
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className={`p-3 rounded-xl transition-colors ${
-              isRecording
-                ? "bg-[#6b8afd] hover:bg-[#4864d1] text-white"
-                : "text-gray-400 hover:text-gray-300 hover:bg-[#383c44]"
-            }`}
-            onClick={handleRecordToggle}
-          >
-            <BsMicFill className="w-5 h-5" />
-          </motion.button>
-        )}
+        <AnimatePresence mode="wait">
+          {value.length > 0 ? (
+            <motion.button
+              key="send"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              className="text-white bg-[#6b8afd] p-3 rounded-xl hover:bg-[#5a75e0] transition-colors"
+              onClick={() => onSend(value, "text")}
+            >
+              <IoSend className="w-5 h-5" />
+            </motion.button>
+          ) : (
+            <motion.button
+              key="mic"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              className={`p-3 rounded-xl transition-colors ${
+                isRecording
+                  ? "bg-[#6b8afd] hover:bg-[#4864d1] text-white"
+                  : "text-gray-400 hover:text-gray-300 hover:bg-[#383c44]"
+              }`}
+              onClick={handleRecordToggle}
+            >
+              <BsMicFill className="w-5 h-5" />
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
