@@ -6,6 +6,7 @@ import EmojiPicker from "emoji-picker-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbGift } from "react-icons/tb";
 import GifPicker from "./GIFPicker";
+import { VoiceRecorder } from "./VoiceRecorder";
 
 interface MessageInputProps {
   value: string;
@@ -27,6 +28,7 @@ export function MessageInput({
   const [isRecording, setIsRecording] = useState(false);
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
   const handleEmojiSelect = (emojiData: any) => {
     onChange(value + emojiData.emoji);
@@ -49,6 +51,14 @@ export function MessageInput({
   const handleGifSelect = (gifUrl: string) => {
     onSend(gifUrl, "gif");
     setShowGifs(false);
+  };
+
+  const handleVoiceRecordingStop = (blob: Blob) => {
+    setAudioBlob(blob);
+    // Here you can handle the audio blob:
+    // 1. Upload it to your server
+    // 2. Convert it to base64
+    // 3. Send it through your chat system
   };
 
   return (
@@ -159,22 +169,11 @@ export function MessageInput({
             <IoSend className="w-5 h-5" />
           </motion.button>
         ) : (
-          <motion.button
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className={`p-3 rounded-xl transition-colors ${
-              isRecording
-                ? "bg-red-500 hover:bg-red-600"
-                : "text-gray-400 hover:text-gray-300 hover:bg-[#383c44]"
-            }`}
-            onClick={handleRecordToggle}
-          >
-            {isRecording ? (
-              <BsMicFill className="w-5 h-5 text-white" />
-            ) : (
-              <BsMic className="w-5 h-5" />
-            )}
-          </motion.button>
+          <VoiceRecorder
+            isRecording={isRecording}
+            onStop={handleVoiceRecordingStop}
+            onToggle={handleRecordToggle}
+          />
         )}
       </div>
     </div>

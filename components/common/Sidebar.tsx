@@ -58,7 +58,7 @@ const footerItems = [
 export function AppSidebar() {
   return (
     <Sidebar className="hidden md:flex">
-      <SidebarContent className="bg-white text-black">
+      <SidebarContent className="text-black">
         {/* Main Navigation */}
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
