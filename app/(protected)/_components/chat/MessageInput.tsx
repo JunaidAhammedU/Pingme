@@ -150,13 +150,33 @@ export function MessageInput({
         </button>
 
         <div className="flex-1 relative">
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            className="w-full bg-[#383c44] text-gray-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6b8afd] transition-all"
-            placeholder="Type a message..."
-          />
+          <motion.div
+            initial={{ opacity: 1, scale: 1 }}
+            animate={{
+              opacity: isRecording ? 0 : 1,
+              scale: isRecording ? 0.8 : 1,
+              display: isRecording ? "none" : "block",
+            }}
+            transition={{ duration: 0.2 }}
+          >
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              className="w-full bg-[#383c44] text-gray-200 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6b8afd] transition-all"
+              placeholder="Type a message..."
+              disabled={isRecording}
+            />
+          </motion.div>
+          {isRecording && (
+            <motion.div className="w-full">
+              <VoiceRecorder
+                isRecording={isRecording}
+                onStop={handleVoiceRecordingStop}
+                onToggle={handleRecordToggle}
+              />
+            </motion.div>
+          )}
         </div>
 
         {value.length > 0 ? (
@@ -169,11 +189,18 @@ export function MessageInput({
             <IoSend className="w-5 h-5" />
           </motion.button>
         ) : (
-          <VoiceRecorder
-            isRecording={isRecording}
-            onStop={handleVoiceRecordingStop}
-            onToggle={handleRecordToggle}
-          />
+          <motion.button
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className={`p-3 rounded-xl transition-colors ${
+              isRecording
+                ? "bg-[#6b8afd] hover:bg-[#4864d1] text-white"
+                : "text-gray-400 hover:text-gray-300 hover:bg-[#383c44]"
+            }`}
+            onClick={handleRecordToggle}
+          >
+            <BsMicFill className="w-5 h-5" />
+          </motion.button>
         )}
       </div>
     </div>

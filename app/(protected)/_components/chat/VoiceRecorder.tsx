@@ -156,11 +156,11 @@ export function VoiceRecorder({
     <div className="flex items-center gap-2">
       <canvas
         ref={canvasRef}
-        width={150} // Increased width for better visualization
+        width={600}
         height={40}
         className={`rounded-lg ${
           isRecording ? "visible" : "hidden"
-        } transition-opacity duration-300`}
+        } transition-opacity duration-300 rounded-xl`}
       />
       <motion.button
         initial={{ scale: 0 }}
