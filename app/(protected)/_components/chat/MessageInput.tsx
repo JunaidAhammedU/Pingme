@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { BsEmojiSmile, BsMic, BsMicFill } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
 import { IoSend } from "react-icons/io5";
-import EmojiPicker from "emoji-picker-react";
+import EmojiPicker, { Theme } from "emoji-picker-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbGift } from "react-icons/tb";
 import GifPicker from "./GIFPicker";
@@ -72,7 +72,16 @@ export function MessageInput({
             exit={{ opacity: 0, y: 20 }}
             className="absolute bottom-full mb-2 left-0"
           >
-            <EmojiPicker onEmojiClick={handleEmojiSelect} />
+            <EmojiPicker
+              onEmojiClick={handleEmojiSelect}
+              skinTonesDisabled
+              searchPlaceHolder="Search emoji..."
+              height={400}
+              width={400}
+              previewConfig={{ showPreview: false }}
+              lazyLoadEmojis
+              theme={Theme.DARK}
+            />
           </motion.div>
         )}
       </AnimatePresence>
