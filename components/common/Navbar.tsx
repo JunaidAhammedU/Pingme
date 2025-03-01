@@ -1,11 +1,10 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import { HiMenuAlt2 } from "react-icons/hi";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { Button } from "../ui/button";
 import { useSidebar } from "../ui/sidebar";
-import { CgMenuRightAlt } from "react-icons/cg";
+import { CgMenuLeft } from "react-icons/cg";
 
 export default function Navbar() {
   const { toggleSidebar } = useSidebar();
@@ -19,9 +18,9 @@ export default function Navbar() {
               variant="ghost"
               size="icon"
               onClick={toggleSidebar}
-              className="text-gray-200 hover:bg-[#383c44]"
+              className="text-gray-200 hover:bg-[#383c44] rounded-xl"
             >
-              <CgMenuRightAlt className="h-5 w-5" />
+              <CgMenuLeft className="h-5 w-5" />
             </Button>
           </div>
 
@@ -29,7 +28,7 @@ export default function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="relative text-gray-200 hover:bg-[#383c44]"
+              className="relative text-gray-200 hover:bg-[#383c44] rounded-xl"
             >
               <IoNotificationsOutline className="h-5 w-5" />
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-blue-500" />
