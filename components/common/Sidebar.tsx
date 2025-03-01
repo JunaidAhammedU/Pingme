@@ -1,47 +1,51 @@
 "use client";
 
-import { Activity, Bookmark } from "lucide-react";
-import { IoCalendarNumberSharp } from "react-icons/io5";
+import { PiUsersThreeFill } from "react-icons/pi";
+import { HiCalendar, HiStar } from "react-icons/hi";
 import { IoIosChatbubbles } from "react-icons/io";
 import { TbBookmarkFilled, TbSettingsFilled } from "react-icons/tb";
+import { RiVipCrownFill } from "react-icons/ri";
+import { HiMiniBellAlert } from "react-icons/hi2";
+import { BiSolidHelpCircle } from "react-icons/bi";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { motion } from "framer-motion";
-
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarFooter,
   SidebarSeparator,
-} from "@/components/ui/sidebar";
+} from "../ui/sidebar";
 
 // Main navigation items
 const mainItems = [
   {
     title: "All Chats",
-    url: "/dashboard/chats",
+    url: "/dashboard",
     icon: IoIosChatbubbles,
-  },
-  {
-    title: "Activity",
-    url: "/dashboard/activity",
-    icon: Activity,
+    badge: "12",
   },
   {
     title: "Calendar",
     url: "/dashboard/calendar",
-    icon: IoCalendarNumberSharp,
+    icon: HiCalendar,
   },
   {
     title: "Saved",
     url: "/dashboard/saved",
     icon: TbBookmarkFilled,
+  },
+  {
+    title: "Notifications",
+    url: "/dashboard/notifications",
+    icon: HiMiniBellAlert,
+    badge: "3",
   },
 ];
 
@@ -51,6 +55,11 @@ const footerItems = [
     title: "Settings",
     url: "/dashboard/settings",
     icon: TbSettingsFilled,
+  },
+  {
+    title: "Help & Support",
+    url: "/dashboard/support",
+    icon: BiSolidHelpCircle,
   },
 ];
 
@@ -64,48 +73,81 @@ export function AppSidebar() {
           transition={{ duration: 0.3 }}
         >
           <SidebarGroup>
-            <SidebarGroupLabel className="text-2xl font-bold mb-6 text-gray-100">
+            <SidebarGroupLabel className="text-2xl font-bold mb-6 text-gray-100 flex items-center gap-2">
               PingMe
+              <RiVipCrownFill className="text-yellow-500" />
             </SidebarGroupLabel>
+
+            {/* Quick Actions */}
+            <div className="grid grid-cols-2 gap-2 mb-6">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="flex flex-col items-center justify-center p-3 bg-[#383c44] rounded-xl hover:bg-[#424750] transition-all"
+              >
+                <PiUsersThreeFill className="w-5 h-5 mb-1" />
+                <span className="text-xs">New Group</span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="flex flex-col items-center justify-center p-3 bg-[#383c44] rounded-xl hover:bg-[#424750] transition-all"
+              >
+                <HiStar className="w-5 h-5 mb-1" />
+                <span className="text-xs">Starred</span>
+              </motion.button>
+            </div>
+
             <SidebarGroupContent>
-              <SidebarMenu>
-                {mainItems.map((item) => (
-                  <motion.div
-                    key={item.title}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <SidebarMenuItem className="mb-3">
-                      <SidebarMenuButton
-                        asChild
-                        tooltip={item.title}
-                        className="w-full"
-                      >
-                        <Link
-                          href={item.url}
-                          className="flex items-center gap-4 p-4 rounded-xl hover:bg-[#383c44] transition-all duration-200 group"
+              {/* Main Menu */}
+              <div className="mb-8">
+                <h3 className="text-xs font-semibold text-gray-400 mb-4 px-2">
+                  MAIN MENU
+                </h3>
+                <SidebarMenu>
+                  {mainItems.map((item) => (
+                    <motion.div
+                      key={item.title}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <SidebarMenuItem className="mb-3">
+                        <SidebarMenuButton
+                          asChild
+                          tooltip={item.title}
+                          className="w-full"
                         >
-                          <div
-                            className={`p-2 rounded-lg shadow-sm group-hover:shadow-md transition-shadow`}
+                          <Link
+                            href={item.url}
+                            className="flex items-center justify-between py-6  bg-[#383c44] rounded-xl hover:bg-[#424750] transition-all group"
                           >
-                            <item.icon className="w-8 h-8" />
-                          </div>
-                          <span className="text-lg font-medium text-gray-300 group-hover:text-gray-100">
-                            {item.title}
-                          </span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </motion.div>
-                ))}
-              </SidebarMenu>
+                            <div className="flex items-center gap-1">
+                              <div className="p-2 px-3 rounded-xl shadow-sm bg-[#383c44] transition-all">
+                                <item.icon className="w-5 h-5" />
+                              </div>
+                              <span className="text-base font-medium text-gray-300 group-hover:text-gray-100">
+                                {item.title}
+                              </span>
+                            </div>
+                            {item.badge && (
+                              <span className="px-2 py-1 text-xs font-medium bg-[#6b8afd] text-white rounded-xl">
+                                {item.badge}
+                              </span>
+                            )}
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </motion.div>
+                  ))}
+                </SidebarMenu>
+              </div>
             </SidebarGroupContent>
           </SidebarGroup>
         </motion.div>
       </SidebarContent>
 
       <SidebarFooter className="p-4">
-        <SidebarSeparator className="my-4 bg-gray-700" />
+        <SidebarSeparator className="my-3 bg-gray-700" />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -124,14 +166,16 @@ export function AppSidebar() {
                       <SidebarMenuButton asChild tooltip={item.title}>
                         <Link
                           href={item.url}
-                          className="flex items-center gap-4 p-4 rounded-xl hover:bg-[#383c44] transition-all duration-200 group"
+                          className="flex items-center justify-between py-4  bg-[#383c44] rounded-xl hover:bg-[#424750] transition-all group"
                         >
-                          <div className="text-gray-300 bg-gray-700/50 p-2 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
-                            <item.icon className="w-6 h-6" />
+                          <div className="flex items-center gap-1">
+                            <div className="p-2 px-3 shadow-sm">
+                              <item.icon className="w-5 h-5" />
+                            </div>
+                            <span className="text-base font-medium text-gray-300 group-hover:text-gray-100">
+                              {item.title}
+                            </span>
                           </div>
-                          <span className="text-lg font-medium text-gray-300 group-hover:text-gray-100">
-                            {item.title}
-                          </span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
