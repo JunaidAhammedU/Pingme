@@ -73,10 +73,25 @@ export function AppSidebar() {
           transition={{ duration: 0.3 }}
         >
           <SidebarGroup>
-            <SidebarGroupLabel className="text-2xl font-bold mb-6 text-gray-100 flex items-center gap-2">
-              PingMe
-              <RiVipCrownFill className="text-yellow-500" />
-            </SidebarGroupLabel>
+            <Link href="/dashboard">
+              <SidebarGroupLabel className="flex items-center gap-3 mb-8 px-2 sticky top-0 bg-[#2e333d] z-10">
+                <div className="flex items-center gap-2">
+                  <img
+                    src="/assets/images/logo.png"
+                    alt="logo"
+                    className="w-10 h-10 rounded-xl shadow-lg"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">
+                      Pingme
+                    </span>
+                    <span className="text-xs text-gray-400">
+                      One ping at a time.
+                    </span>
+                  </div>
+                </div>
+              </SidebarGroupLabel>
+            </Link>
 
             {/* Quick Actions */}
             <div className="grid grid-cols-2 gap-2 mb-6">
