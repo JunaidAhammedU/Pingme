@@ -10,6 +10,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/common/Sidebar";
+import Navbar from "@/components/common/Navbar";
 
 export default function ProtectedLayout({
   children,
@@ -22,7 +23,7 @@ export default function ProtectedLayout({
         <SidebarProvider>
           <AppSidebar />
           <SidebarInset className="min-h-screen overflow-y-auto bg-[#2e333d]">
-            <SidebarTrigger />
+            <Navbar />
             {children}
           </SidebarInset>
         </SidebarProvider>
