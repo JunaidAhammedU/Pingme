@@ -1,16 +1,9 @@
 "use client";
 
-import {
-  MessageSquare,
-  Activity,
-  Calendar,
-  Bookmark,
-  Settings,
-  LogOut,
-} from "lucide-react";
-
+import { Activity, Bookmark } from "lucide-react";
+import { IoCalendarNumberSharp } from "react-icons/io5";
 import { IoIosChatbubbles } from "react-icons/io";
-
+import { TbBookmarkFilled, TbSettingsFilled } from "react-icons/tb";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { motion } from "framer-motion";
@@ -34,29 +27,21 @@ const mainItems = [
     title: "All Chats",
     url: "/dashboard/chats",
     icon: IoIosChatbubbles,
-    color: "text-blue-400",
-    bgColor: "bg-blue-400/10",
   },
   {
     title: "Activity",
     url: "/dashboard/activity",
     icon: Activity,
-    color: "text-green-400",
-    bgColor: "bg-green-400/10",
   },
   {
     title: "Calendar",
     url: "/dashboard/calendar",
-    icon: Calendar,
-    color: "text-purple-400",
-    bgColor: "bg-purple-400/10",
+    icon: IoCalendarNumberSharp,
   },
   {
     title: "Saved",
     url: "/dashboard/saved",
-    icon: Bookmark,
-    color: "text-yellow-400",
-    bgColor: "bg-yellow-400/10",
+    icon: TbBookmarkFilled,
   },
 ];
 
@@ -65,7 +50,7 @@ const footerItems = [
   {
     title: "Settings",
     url: "/dashboard/settings",
-    icon: Settings,
+    icon: TbSettingsFilled,
   },
 ];
 
@@ -80,7 +65,7 @@ export function AppSidebar() {
         >
           <SidebarGroup>
             <SidebarGroupLabel className="text-2xl font-bold mb-6 text-gray-100">
-              Ping
+              PingMe
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
@@ -101,9 +86,9 @@ export function AppSidebar() {
                           className="flex items-center gap-4 p-4 rounded-xl hover:bg-[#383c44] transition-all duration-200 group"
                         >
                           <div
-                            className={`${item.color} ${item.bgColor} p-2 rounded-lg shadow-sm group-hover:shadow-md transition-shadow`}
+                            className={`p-2 rounded-lg shadow-sm group-hover:shadow-md transition-shadow`}
                           >
-                            <item.icon className="w-6 h-6" />
+                            <item.icon className="w-8 h-8" />
                           </div>
                           <span className="text-lg font-medium text-gray-300 group-hover:text-gray-100">
                             {item.title}
