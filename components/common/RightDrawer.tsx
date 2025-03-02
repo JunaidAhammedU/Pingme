@@ -14,7 +14,7 @@ const RightDrawer = ({ children }: RightDrawerProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent className="w-[400px] sm:w-[540px] bg-[#121418] text-white overflow-y-auto">
+      <SheetContent className="w-[400px] sm:w-[540px] bg-[#131313] text-white overflow-y-auto">
         {/* Profile Section */}
         <div className="relative">
           <div className="p-4 mt-2 flex items-center justify-center">

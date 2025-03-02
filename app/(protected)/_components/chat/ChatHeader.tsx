@@ -7,6 +7,7 @@ import {
 } from "react-icons/pi";
 import Thumbnail from "../Thumbnail";
 import RightDrawer from "@/components/common/RightDrawer";
+import ChatDropdown from "./ChatDropdown";
 
 export function ChatHeader() {
   //   const { activeChat, chats } = useChats();
@@ -33,7 +34,9 @@ export function ChatHeader() {
         <RightDrawer>
           <PiSidebarSimpleDuotone className="w-[40px] h-[40px] text-gray-400 cursor-pointer hover:bg-[#383c44] p-2 rounded-xl" />
         </RightDrawer>
-        <PiDotsThreeOutlineVerticalDuotone className="w-[40px] h-[40px] text-gray-400 cursor-pointer hover:bg-[#383c44] p-2 rounded-xl" />
+        <ChatDropdown>
+          <PiDotsThreeOutlineVerticalDuotone className="w-[40px] h-[40px] text-gray-400 cursor-pointer hover:bg-[#383c44] p-2 rounded-xl" />
+        </ChatDropdown>
       </div>
     </div>
   );
