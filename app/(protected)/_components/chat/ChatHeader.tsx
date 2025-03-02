@@ -1,6 +1,6 @@
 import { StatusIndicator } from "@/components/common/StatusIndicator";
-import { useChats } from "@/lib/hooks/useChats";
-import { IoCall } from "react-icons/io5";
+// import { useChats } from "@/lib/hooks/useChats";
+import { RiVideoOnAiFill } from "react-icons/ri";
 import {
   PiDotsThreeOutlineVerticalDuotone,
   PiSidebarSimpleDuotone,
@@ -28,13 +28,14 @@ export function ChatHeader() {
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <IoCall className="w-5 h-5 text-gray-400 cursor-pointer" />
+      <div className="flex items-center gap-6">
+        <RiVideoOnAiFill className="w-[40px] h-[40px] text-gray-400 cursor-pointer hover:bg-[#383c44] p-2 rounded-xl" />
         <RightDrawer>
-          <PiSidebarSimpleDuotone className="w-5 h-5 text-gray-400 cursor-pointer" />
+          <PiSidebarSimpleDuotone className="w-[40px] h-[40px] text-gray-400 cursor-pointer hover:bg-[#383c44] p-2 rounded-xl" />
         </RightDrawer>
-        <PiDotsThreeOutlineVerticalDuotone className="w-5 h-5 text-gray-400 cursor-pointer" />
+        <PiDotsThreeOutlineVerticalDuotone className="w-[40px] h-[40px] text-gray-400 cursor-pointer hover:bg-[#383c44] p-2 rounded-xl" />
       </div>
     </div>
   );
 }
+//hover:bg-[#383c44]
