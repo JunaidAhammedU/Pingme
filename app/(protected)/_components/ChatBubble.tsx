@@ -13,7 +13,6 @@ export default function ChatBubble({ direction = "right" }: ChatBubbleProps) {
         direction === "right" ? "justify-end" : "justify-start flex-row-reverse"
       }`}
     >
-      {/* Chat Bubble */}
       <div
         className={`text-white rounded-2xl p-3 shadow-lg max-w-sm ${
           direction === "right" ? "bg-[#6b8afd]" : "bg-[#383c44]"
