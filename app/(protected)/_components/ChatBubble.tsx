@@ -18,7 +18,6 @@ export default function ChatBubble({ direction = "right" }: ChatBubbleProps) {
           direction === "right" ? "bg-[#6b8afd]" : "bg-[#383c44]"
         }`}
       >
-        {/* User Name */}
         <p className="text-sm font-semibold">Lili Wilson</p>
 
         {/* Message Text */}
