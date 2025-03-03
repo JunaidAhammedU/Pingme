@@ -20,7 +20,6 @@ export default function ChatBubble({ direction = "right" }: ChatBubbleProps) {
       >
         <p className="text-sm font-semibold">Lili Wilson</p>
 
-        {/* Message Text */}
         <p className="mt-1">
           I'm stuck in traffic, I'll be there a little later
         </p>
