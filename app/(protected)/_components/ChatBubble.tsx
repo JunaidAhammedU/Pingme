@@ -24,7 +24,6 @@ export default function ChatBubble({ direction = "right" }: ChatBubbleProps) {
           I'm stuck in traffic, I'll be there a little later
         </p>
 
-        {/* Reactions & Time */}
         <div className="flex items-center justify-between mt-2 text-xs opacity-80">
           <div className="flex space-x-1">
             <Frown size={16} className="text-yellow-300" />
