@@ -5,7 +5,7 @@ const Thumbnail = () => {
     <>
       <img
         className="w-14 h-14 rounded-xl object-cover"
-        src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671140.jpg"
+        src="https://cdn3d.iconscout.com/3d/premium/thumb/boy-avatar-3d-icon-download-in-png-blend-fbx-gltf-file-formats--boys-male-man-pack-avatars-icons-5187865.png?f=webp"
         alt="user"
       />
     </>
