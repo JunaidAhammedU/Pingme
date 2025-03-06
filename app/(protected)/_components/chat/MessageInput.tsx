@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { BsEmojiSmile, BsMic, BsMicFill } from "react-icons/bs";
+import { BsEmojiSmile } from "react-icons/bs";
 import { FiPaperclip } from "react-icons/fi";
-import { IoSend } from "react-icons/io5";
+import { FaMicrophone } from "react-icons/fa";
 import EmojiPicker, { Theme } from "emoji-picker-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbGift } from "react-icons/tb";
@@ -215,14 +215,14 @@ export function MessageInput({
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0 }}
-              className={`p-3 rounded-xl transition-colors ${
+              className={`p-3 rounded-2xl transition-colors ${
                 isRecording
                   ? "bg-[#6b8afd] hover:bg-[#4864d1] text-white"
                   : "text-gray-400 hover:text-gray-300 hover:bg-[#383c44]"
               }`}
               onClick={handleRecordToggle}
             >
-              <BsMicFill className="w-5 h-5" />
+              <FaMicrophone className="w-5 h-5" />
             </motion.button>
           )}
         </AnimatePresence>
