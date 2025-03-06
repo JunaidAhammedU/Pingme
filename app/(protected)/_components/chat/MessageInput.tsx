@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { TbGift } from "react-icons/tb";
 import GifPicker from "./GIFPicker";
 import { VoiceRecorder } from "./VoiceRecorder";
+import { RiSendPlaneFill } from "react-icons/ri";
 
 interface MessageInputProps {
   value: string;
@@ -203,10 +204,10 @@ export function MessageInput({
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0 }}
-              className="text-white bg-[#6b8afd] p-3 rounded-xl hover:bg-[#5a75e0] transition-colors"
+              className="text-white bg-[#6b8afd] p-3 rounded-2xl hover:bg-[#5a75e0] transition-colors"
               onClick={() => onSend(value, "text")}
             >
-              <IoSend className="w-5 h-5" />
+              <RiSendPlaneFill className="w-5 h-5" />
             </motion.button>
           ) : (
             <motion.button
