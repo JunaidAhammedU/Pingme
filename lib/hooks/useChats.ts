@@ -9,7 +9,7 @@ interface ChatStore {
   addMessage: (chatId: string, message: Message) => void;
 }
 
-// Zustand store for chat state
+// store for chat state
 export const useChats = create<ChatStore>((set) => ({
   chats: [],
   activeChat: null,
