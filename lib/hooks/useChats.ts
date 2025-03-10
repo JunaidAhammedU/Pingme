@@ -7,7 +7,6 @@ interface ChatStore {
   messages: { [chatId: string]: Message[] };
   setActiveChat: (chatId: string) => void;
   addMessage: (chatId: string, message: Message) => void;
-  // Add more actions as needed
 }
 
 export const useChats = create<ChatStore>((set) => ({
