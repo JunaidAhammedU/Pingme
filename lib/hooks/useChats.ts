@@ -8,7 +8,6 @@ interface ChatStore {
   setActiveChat: (chatId: string) => void;
   addMessage: (chatId: string, message: Message) => void;
 }
-
 // Store for chat state.
 export const useChats = create<ChatStore>((set) => ({
   chats: [],
