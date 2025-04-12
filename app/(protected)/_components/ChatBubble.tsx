@@ -6,7 +6,7 @@ interface ChatBubbleProps {
   direction?: "left" | "right";
 }
 
-// Chat Bubble
+// Chat Bubble.
 export default function ChatBubble({ direction = "right" }: ChatBubbleProps) {
   return (
     <div
